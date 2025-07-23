@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Clientes - GrupoMultiPC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="number"],
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Interés de Clientes</h1>
+        <form id="clienteForm" action="enviar_correo.php" method="post">
+            <div class="form-group">
+                <label for="nombre" class="required">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="fecha" class="required">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="producto" class="required">Producto de interés:</label>
+                <input type="text" id="producto" name="producto" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="whatsapp" class="required">WhatsApp:</label>
+                <input type="text" id="whatsapp" name="whatsapp" required placeholder="Ej: +502 1234 5678">
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="required">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="departamento" class="required">Departamento:</label>
+                <select id="departamento" name="departamento" required>
+                    <option value="">Seleccione...</option>
+                    <option value="Alta Verapaz">Alta Verapaz</option>
+                    <option value="Baja Verapaz">Baja Verapaz</option>
+                    <option value="Chimaltenango">Chimaltenango</option>
+                    <option value="Chiquimula">Chiquimula</option>
+                    <option value="El Progreso">El Progreso</option>
+                    <option value="Escuintla">Escuintla</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Huehuetenango">Huehuetenango</option>
+                    <option value="Izabal">Izabal</option>
+                    <option value="Jalapa">Jalapa</option>
+                    <option value="Jutiapa">Jutiapa</option>
+                    <option value="Petén">Petén</option>
+                    <option value="Quetzaltenango">Quetzaltenango</option>
+                    <option value="Quiché">Quiché</option>
+                    <option value="Retalhuleu">Retalhuleu</option>
+                    <option value="Sacatepéquez">Sacatepéquez</option>
+                    <option value="San Marcos">San Marcos</option>
+                    <option value="Santa Rosa">Santa Rosa</option>
+                    <option value="Sololá">Sololá</option>
+                    <option value="Suchitepéquez">Suchitepéquez</option>
+                    <option value="Totonicapán">Totonicapán</option>
+                    <option value="Zacapa">Zacapa</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="municipio" class="required">Municipio:</label>
+                <input type="text" id="municipio" name="municipio" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="comentarios">Comentarios adicionales:</label>
+                <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Enviar Información</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Script para llenar automáticamente la fecha actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaInput = document.getElementById('fecha');
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+            fechaInput.value = dateString;
+            
+            // Validación del formulario antes de enviar
+            document.getElementById('clienteForm').addEventListener('submit', function(e) {
+                const whatsapp = document.getElementById('whatsapp').value;
+                if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(whatsapp)) {
+                    alert('Por favor ingrese un número de WhatsApp válido');
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
